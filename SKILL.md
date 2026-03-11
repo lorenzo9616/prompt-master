@@ -1,6 +1,7 @@
 ---
 Name: prompt-master
-Description: Generates surgical, credit-efficient prompts for any AI tool or IDE. Use this skill whenever the user wants to write a prompt for Claude, ChatGPT, Gemini, Cursor, Claude Code, GitHub Copilot, Windsurf, Bolt, v0, Midjourney, DALL-E, or any other AI-powered tool. Also trigger when the user says things like "help me write a prompt", "how should I ask this to GPT", "make a good prompt for Cursor", "I want to build X in Claude Code", or any variation of wanting to communicate an idea to an AI system. This skill eliminates wasted tokens, prevents hallucinated scope creep, retains full context from the conversation, and asks clarifying questions before generating when the intent is ambiguous.
+Version: 1.0.0
+Description: Generates clear, credit-efficient prompts for any AI tool or IDE. Use this skill whenever the user wants to write a prompt for Claude, ChatGPT, Gemini, Cursor, Claude Code, GitHub Copilot, Windsurf, Bolt, v0, Midjourney, DALL-E, or any other AI-powered tool. Also trigger when the user says things like "Help me write a prompt", "How should I ask this to GPT", "Make a good prompt for Cursor", "I want to build X in Claude Code", or any variation of wanting to communicate an idea to an AI system. This skill eliminates wasted tokens, prevents hallucinated scope creep, retains full context from the conversation, and asks clarifying questions before generating when the intent is ambiguous.
 ---
 
 # Prompt Master

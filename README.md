@@ -1,17 +1,21 @@
 # Prompt Master
 
-A Claude skill that writes the perfect prompts for any AI tool. Zero tokens or credits wasted; Full context and memory efficient.
+A Claude skill that writes the perfect prompt for any AI tool. Zero tokens or credits wasted. Full context and memory retention.
 
+Works with: Claude, ChatGPT, Gemini, o1/o3, Cursor, Claude Code, GitHub Copilot, Windsurf, Bolt, v0, Lovable, Devin, Perplexity, Midjourney, DALL-E, Stable Diffusion, Sora, Runway, ElevenLabs, Zapier, Make, and any AI tool you throw at it.
+
+---
 
 ## Installation
 
+
 ### Claude.ai (browser)
 
-1. Download this repo as a ZIP.
+1. Download this repo as a ZIP
 2. Go to **claude.ai → Sidebar → Customize → Upload into Custom Skill**
 
 
-### Clone directly into Claude Code skills directory
+### Recommended (clone directly into Claude Code skills directory)
 
 ```bash
 mkdir -p ~/.claude/skills
@@ -20,12 +24,16 @@ git clone https://github.com/nidhinjs/prompt-master.git ~/.claude/skills/prompt-
 
 ### Manual install / update (only the skill file)
 
-If you already have this repo cloned (or you downloaded SKILL.md), copy the skill file into Claude Code’s skills directory:
+If you already have this repo cloned (or downloaded `SKILL.md`), copy the skill file into Claude Code's skills directory:
 
 ```bash
 mkdir -p ~/.claude/skills/prompt-master
 cp SKILL.md ~/.claude/skills/prompt-master/
 ```
+
+
+
+---
 
 ## Usage
 
@@ -63,70 +71,155 @@ Every AI user burns credits the same way:
 
 > Write vague prompt → get wrong output → re-prompt → get closer → re-prompt again → finally get what you wanted on attempt 4
 
-That's 3 wasted API calls. And lots of time wasted perfecting the prompt to not waste credits.
+---
+
+## How It Works
+
+Prompt Master runs a structured pipeline on every request:
+
+1. **Detects the target tool** — identifies which AI system the prompt is for and applies tool-specific optimizations
+2. **Extracts 9 dimensions of intent** — task, input, output, constraints, context, audience, memory, success criteria, examples
+3. **Asks targeted clarifying questions** — max 3 questions if critical info is missing, never more
+4. **Selects the right framework** — chooses from 9 prompt frameworks based on task type
+5. **Applies advanced techniques** — layers in CoT, few-shot, XML tags, memory blocks, grounding anchors as needed
+6. **Runs a token efficiency audit** — strips every word that doesn't change the output
+7. **Delivers the prompt** — clean copyable block with target tool, framework used, token estimate, and strategy note
 
 ---
 
-## 20 Credit-Killing Patterns Detected (with Before/After Examples)
+## Works With Any AI Tool
+
+Prompt Master includes specific profiles for 18+ tools. For anything not on the list, it uses a **Universal Fingerprint** — 4 questions that let it write a quality prompt for any AI system it has never seen before.
+
+| Tool | Category | What Prompt Master Fixes |
+|------|----------|--------------------------|
+| **Claude** | Reasoning LLM | Removes padding, adds XML structure, specifies length |
+| **ChatGPT / GPT-4o** | Reasoning LLM | Strong role assignment, explicit format, numeric constraints |
+| **Gemini 2.x** | Reasoning LLM | Grounding anchors, citation rules, format locks |
+| **o1 / o3** | Thinking LLM | Short clean instructions only — never adds CoT (they think internally) |
+| **Local models (Llama, Mistral)** | Open-weight LLM | Shorter prompts, simpler structure, no complex nesting |
+| **Claude Code** | Agentic AI | Stop conditions, file scope, checkpoint output |
+| **Cursor / Windsurf** | IDE AI | File path, function name, do-not-touch list |
+| **GitHub Copilot** | Autocomplete AI | Exact function contract as docstring |
+| **Bolt / v0 / Lovable** | Full-stack generator | Stack spec, version, what NOT to scaffold |
+| **Devin / SWE-agent** | Autonomous agent | Starting state, target state, stop conditions |
+| **Perplexity / SearchGPT** | Search AI | Mode spec: search vs analyze vs compare |
+| **Midjourney** | Image AI | Comma-separated descriptors, parameters, negative prompts |
+| **DALL-E 3** | Image AI | Prose description, text exclusion instruction |
+| **Stable Diffusion** | Image AI | Weight syntax `(word:1.3)`, CFG guidance, mandatory negative prompt |
+| **Sora / Runway** | Video AI | Camera movement, duration, cut style |
+| **ElevenLabs** | Voice AI | Emotion, pacing, emphasis, speech rate |
+| **Zapier / Make** | Workflow automation | Trigger app + event, action app + field mapping |
+
+---
+
+## 9 Prompt Frameworks — Auto-Selected
+
+Prompt Master picks the right architecture for every task automatically.
+
+| Framework | Best For |
+|-----------|----------|
+| **RTF** (Role, Task, Format) | Fast one-shot tasks |
+| **CO-STAR** (Context, Objective, Style, Tone, Audience, Response) | Professional documents, reports, business writing |
+| **RISEN** (Role, Instructions, Steps, End Goal, Narrowing) | Complex multi-step projects |
+| **CRISPE** (Capacity, Role, Insight, Statement, Personality, Experiment) | Creative work, brand voice, iterative content |
+| **Chain of Thought** | Math, logic, debugging, multi-step analysis |
+| **Few-Shot** | Consistent structured output, pattern replication |
+| **File-Scope Template** | Cursor, Windsurf, Copilot — any code editing AI |
+| **ReAct + Stop Conditions** | Claude Code, Devin, AutoGPT — any autonomous agent |
+| **Visual Descriptor** | Midjourney, DALL-E, Stable Diffusion, Sora |
+
+---
+
+## 10 Advanced Techniques Applied Automatically
+
+| Technique | What It Does |
+|-----------|-------------|
+| **Role Activation** | Assigns a specific expert identity to calibrate depth and vocabulary |
+| **Chain of Thought** | Forces step-by-step reasoning for logic and analysis tasks |
+| **Few-Shot Injection** | Adds 2–5 examples when format consistency matters more than instructions |
+| **XML Structural Tags** | Wraps sections in XML for Claude-based tools that parse it reliably |
+| **Response Prefilling** | Starts the AI's response with the first characters to lock in format |
+| **Prompt Chaining** | Splits complex tasks into sequential focused prompts |
+| **Grounding Anchors** | Adds anti-hallucination rules for factual and citation tasks |
+| **Output Scaffolding** | Provides the skeleton for long structured outputs |
+| **Negative Constraints** | Adds precise do-not-do rules without triggering reverse-psychology effects |
+| **Self-Check Instruction** | Asks the AI to verify its own output before finishing |
+
+---
+
+## 35 Credit-Killing Patterns Detected (with Before/After Examples)
 
 ### Task Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 1 | **Vague task verbs** | "help me with my code" | "Refactor `getUserData()` to use async/await and handle null returns" |
-| 2 | **Asking two things at once** | "explain AND rewrite this function" | Split into two sequential prompts |
-| 3 | **No success criteria** | "make it better" | "Done when function passes existing unit tests and handles null input without throwing" |
-| 4 | **Over-permissive agent** | "do whatever it takes to fix this" | Explicit allowed actions + forbidden actions list |
-| 5 | **Missing file path (IDE AI)** | "update the login function" | "Update `handleLogin()` in `src/pages/Login.tsx` line 47" |
+| 1 | **Vague task verb** | "help me with my code" | "Refactor `getUserData()` to use async/await and handle null returns" |
+| 2 | **Two tasks in one prompt** | "explain AND rewrite this function" | Split: explain first, rewrite second |
+| 3 | **No success criteria** | "make it better" | "Done when function passes existing unit tests and handles null input" |
+| 4 | **Over-permissive agent** | "do whatever it takes" | Explicit allowed + forbidden actions list |
+| 5 | **Emotional task description** | "it's totally broken, fix everything" | "Throws uncaught TypeError on line 43 when `user` is null" |
+| 6 | **Build-the-whole-thing** | "build my entire app" | Break into Prompt 1 (scaffold), Prompt 2 (feature), Prompt 3 (polish) |
+| 7 | **Implicit reference** | "now add the other thing we discussed" | Always restate the full task — never reference "the thing we discussed" |
 
 ### Context Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 6 | **Assumed knowledge** | "continue where we left off" | Include Memory Block with all prior decisions |
-| 7 | **Missing context** | "write a cover letter" | "Write for a PM role at fintech startup, I have 2 years SWE transitioning to product" |
-| 8 | **Forgetting prior stack** | New prompt contradicts agreed-upon tech | Always include Memory Block |
-| 9 | **Hallucination-prone phrasing** | "what do experts say about X?" | "Cite only sources you are certain of. If uncertain, say so explicitly." |
-| 10 | **Undefined audience** | "write something for users" | "Write for non-technical founders, assume zero coding knowledge" |
+| 8 | **Assumed prior knowledge** | "continue where we left off" | Include Memory Block with all prior decisions |
+| 9 | **No project context** | "write a cover letter" | "PM role at B2B fintech, 2yr SWE experience, shipped 3 features as tech lead" |
+| 10 | **Forgotten stack** | New prompt contradicts prior tech choice | Always include Memory Block |
+| 11 | **Hallucination invite** | "what do experts say about X?" | "Cite only sources you are certain of. If uncertain, say so." |
+| 12 | **Undefined audience** | "write something for users" | "Non-technical B2B buyers, no coding knowledge, decision-maker level" |
+| 13 | **No mention of prior failures** | (blank) | "I already tried X and it failed because Y. Do not suggest X." |
 
 ### Format Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 11 | **Missing output format** | "explain this concept" | "Explain in exactly 3 bullet points, each under 20 words" |
-| 12 | **Implicit length** | "write a summary" | "Write a summary in exactly 3 sentences, no more" |
-| 13 | **No role assignment** | (blank system prompt) | "You are a senior backend engineer specializing in Node.js and PostgreSQL" |
-| 14 | **Emotional/vague adjectives** | "make it look professional" | "Monochrome palette, 16px base font, 24px line height, no decorative elements" |
-| 15 | **No negative prompts (image AI)** | "a portrait of a woman" | Add: "no watermark, no blur, no extra fingers, no distortion" |
+| 14 | **Missing output format** | "explain this concept" | "3 bullet points, each under 20 words, one-sentence summary at top" |
+| 15 | **Implicit length** | "write a summary" | "Write a summary in exactly 3 sentences" |
+| 16 | **No role assignment** | (blank) | "You are a senior backend engineer specializing in Node.js and PostgreSQL" |
+| 17 | **Vague aesthetic adjectives** | "make it look professional" | "Monochrome palette, 16px base font, 24px line height, no decorative elements" |
+| 18 | **No negative prompts (image AI)** | "a portrait of a woman" | Add: "no watermark, no blur, no extra fingers, no distortion, no text" |
+| 19 | **Prose prompt for Midjourney** | Full descriptive sentence | "subject, style, mood, lighting, --ar 16:9 --v 6" |
 
 ### Scope Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 16 | **No scope boundary** | "fix my app" | "Fix only the login form validation logic in `auth.js`. Touch nothing else." |
-| 17 | **No constraints** | "build a React component" | "React 18, TypeScript only, no external libraries, no inline styles" |
-| 18 | **No stop condition (agentic)** | "build the whole app" | Explicit stop conditions + human review checkpoints |
-| 19 | **Tool mismatch** | GPT-style prompt used in Cursor | Adapted to IDE-specific format with file path + scope |
-| 20 | **Re-explaining solved problems** | Paste entire codebase every prompt | Scoped to the relevant function or section only |
+| 20 | **No scope boundary** | "fix my app" | "Fix only login form validation in `src/auth.js`. Touch nothing else." |
+| 21 | **No stack constraints** | "build a React component" | "React 18, TypeScript strict, no external libraries, Tailwind only" |
+| 22 | **No stop condition for agents** | "build the whole feature" | Explicit stop conditions + ✅ checkpoint after each step |
+| 23 | **No file path for IDE AI** | "update the login function" | "Update `handleLogin()` in `src/pages/Login.tsx` only" |
+| 24 | **Wrong template for tool** | GPT-style prose used in Cursor | Adapted to File-Scope Template with path + scope |
+| 25 | **Pasting entire codebase** | Full repo context every prompt | Scoped to relevant function and file only |
 
----
+### Reasoning Patterns
 
-## 4 Prompt Templates Included
+| # | Pattern | Before | After |
+|---|---------|--------|-------|
+| 26 | **No CoT for logic task** | "which approach is better?" | "Think through both approaches step by step before recommending" |
+| 27 | **Adding CoT to reasoning models** | "think step by step" sent to o1/o3 | Removed — reasoning models think internally, CoT instructions degrade output |
+| 28 | **No self-check on complex output** | (nothing) | "Before finishing, verify output against the constraints above" |
+| 29 | **Expecting inter-session memory** | "you already know my project" | Always re-provide the Memory Block |
+| 30 | **Contradicting prior decisions** | New prompt ignores earlier architecture | Memory Block with all established facts |
 
-The skill contains ready-to-use templates for every major AI category:
+### Agentic Patterns
 
-| Template | For | Key Additions |
-|----------|-----|---------------|
-| **Template A** | Claude, ChatGPT, Gemini | Role + Task + Format + Constraints + Context + Success Criteria |
-| **Template B** | Cursor, Windsurf, Copilot | File path + Current behavior + Desired change + Scope boundary |
-| **Template C** | Claude Code, Cursor, Antigravity | Objective + Allowed/Forbidden actions + Stop conditions + Checkpoints |
-| **Template D** | Midjourney, DALL-E, Sora | Subject + Style + Mood + Lighting + Negative prompts + Aspect ratio |
+| # | Pattern | Before | After |
+|---|---------|--------|-------|
+| 31 | **No starting state** | "build me a REST API" | "Empty Node.js project, Express installed, `src/app.js` exists" |
+| 32 | **No target state** | "add authentication" | "`/src/middleware/auth.js` with JWT verify. `POST /login` and `POST /register` in `/src/routes/auth.js`" |
+| 33 | **Silent agent** | No progress output | "After each step output: ✅ [what was completed]" |
+| 34 | **Unlocked filesystem** | No file restrictions | "Only edit files inside `src/`. Do not touch `package.json`, `.env`, or any config file." |
+| 35 | **No human review trigger** | Agent decides everything | "Stop and ask before: deleting any file, adding any dependency, or touching the database schema" |
 
 ---
 
 ## Memory Block System
 
-When your conversation has history, Prompt Master automatically extracts prior decisions and prepends a Memory Block to prevent the AI from contradicting earlier work:
+When your conversation has history, Prompt Master automatically extracts prior decisions and prepends a Memory Block so the AI never contradicts earlier work:
 
 ```
 ## Memory (Carry Forward from Previous Context)
@@ -134,69 +227,10 @@ When your conversation has history, Prompt Master automatically extracts prior d
 - Auth uses JWT stored in httpOnly cookies, not localStorage
 - Component naming convention: PascalCase, no default exports
 - Design system: Tailwind only, no custom CSS files
+- Architecture: no Redux, context API only
 ```
 
 This solves the #1 cause of wasted re-prompts in long sessions.
-
----
-
-## Full Example
-
-### User Input
-```
-i want to ask cursor to fix the bug in my login page
-```
-
----
-
-### Prompt Master Asks
-```
-Two quick things before I write this:
-1. What file is the login page in, and what's the buggy function called?
-2. What is the bug actually doing wrong right now?
-```
-
----
-
-### User Answers
-```
-it's in src/pages/Login.tsx, the handleLogin function.
-When login fails it should show an error but the page just goes blank
-```
-
----
-
-### Generated Prompt
-
-```
-## File
-src/pages/Login.tsx
-
-## Current Behavior
-The handleLogin function silently fails on bad credentials —
-the page goes blank instead of displaying an error message.
-
-## Desired Change
-When login fails, display an inline error message below the submit button.
-"Incorrect email or password" for a 401.
-"Something went wrong" for 500+.
-
-## Scope
-Only modify the handleLogin function and the JSX error display section.
-Do NOT touch the form layout, styling, or any other component.
-
-## Constraints
-- Do not add new libraries
-- Maintain existing TypeScript types — do not use `any`
-- Keep existing loading state logic untouched
-
-## Done When
-- Failed login renders an error message below the submit button
-- Successful login still redirects correctly
-- Zero TypeScript errors
-```
-
-**Target:** Cursor · **Token Estimate:** Light (~180 tokens) · **Strategy:** Scoped to one function, explicit stop boundary, success criteria prevent over-editing.
 
 ---
 
@@ -211,7 +245,8 @@ Do NOT touch the form layout, styling, or any other component.
 
 ## Version History
 
-- **1.0.0** — Initial release
+- **1.0.0** - Initial release
+- **1.1.0** - Added more patterns
 
 ---
 

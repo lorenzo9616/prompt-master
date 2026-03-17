@@ -1,8 +1,8 @@
 # Prompt Master
 
-A Claude skill that writes the perfect prompt for any AI tool. Zero tokens or credits wasted. Full context and memory retention.
+A Claude skill that writes the accurate prompts for any AI tool. Zero tokens or credits wasted. Full context and memory retention.
 
-Works with: Claude, ChatGPT, Gemini, o1/o3, Cursor, Claude Code, GitHub Copilot, Windsurf, Bolt, v0, Lovable, Devin, Perplexity, Midjourney, DALL-E, Stable Diffusion, Sora, Runway, ElevenLabs, Zapier, Make, and any AI tool you throw at it.
+Works with: Claude, ChatGPT, Gemini, o1/o3, Cursor, Claude Code, GitHub Copilot, Windsurf, Bolt, v0, Lovable, Devin, Perplexity, Midjourney, DALL-E, Stable Diffusion, ComfyUI, Sora, Runway, ElevenLabs, Zapier, Make, and any AI tool you throw at it.
 
 ---
 
@@ -10,7 +10,7 @@ Works with: Claude, ChatGPT, Gemini, o1/o3, Cursor, Claude Code, GitHub Copilot,
 
 ### Recommended Claude.ai (browser)
 
-1. Download this repo as a ZIP 
+1. Download this repo as a ZIP
 2. Go to **claude.ai → Sidebar → Customize → Upload into Custom Skill**
 
 ### Clone directly into Claude Code skills directory
@@ -28,7 +28,6 @@ If you already have this repo cloned (or downloaded `SKILL.md`), copy the skill 
 mkdir -p ~/.claude/skills/prompt-master
 cp SKILL.md ~/.claude/skills/prompt-master/
 ```
-
 
 ---
 
@@ -50,6 +49,14 @@ Here's a bad prompt I wrote for GPT-4o, fix it: [paste prompt]
 
 ```
 Generate a Midjourney prompt for a cyberpunk city at night
+```
+
+```
+I have a reference image — help me write a prompt to edit just the head angle
+```
+
+```
+Break this prompt down and adapt it for Stable Diffusion
 ```
 
 Or explicitly invoke it:
@@ -91,10 +98,110 @@ Prompt Master runs a structured pipeline on every request:
 7. **Delivers the prompt** — one clean copyable block with a one-line strategy note
 
 ---
+## Full Example #1
+
+### User Input
+```
+Write me a midjourney prompt for a realistic samurai standing in the rain at night
+```
+
+### Generated Prompt
+```
+lone samurai standing in heavy rain at night, traditional armor, 
+neon reflections on wet cobblestone street, cinematic lighting, 
+dramatic shadows, fog, ultra detailed, photorealistic, 
+shallow depth of field --ar 16:9 --v 6 --style raw
+
+negative: blurry, low quality, watermark, cartoon, anime, extra limbs
+```
+**🎯 Target:** Midjourney · **⚡ Framework:** Visual Descriptor · **💰 Tokens:** Light (~60) · **💡 Strategy:** Comma-separated descriptors over prose, lighting and mood anchored early, aspect ratio and version locked, negative prompt prevents style drift.
+
+---
+## Full Example #2
+
+### User Input
+```
+Build a claude code prompt for a landing page for a business 
+dashboard that looks and feels exactly like notion - smooth animations, 
+clean ui
+```
+
+
+### Generated Prompt
+```
+Objective:
+Build a fully detailed, production-quality static landing page for a 
+business dashboard product. Design must match Notion's exact aesthetic — 
+clean, minimal, typographic, with smooth animations throughout.
+
+Stack:
+Single HTML file with embedded CSS and vanilla JS. No frameworks. 
+No external dependencies except Google Fonts (Inter).
+
+Design Spec — match these exactly:
+- Background: #ffffff
+- Primary text: #1a1a1a
+- Secondary text: #6b7280
+- Border color: #e5e7eb
+- Accent: #000000
+- Font: Inter, weights 400 / 500 / 600 / 700
+- Base spacing unit: 8px
+- Border radius: 6px on cards, 4px on buttons
+- Box shadows: 0 1px 3px rgba(0,0,0,0.08) only — no dramatic shadows
+- Buttons: black fill, white text, no border radius above 6px
+
+Sections to build in order:
+1. Navbar — logo left, nav links center, "Get started free" CTA right. 
+   Sticky on scroll, adds subtle border-bottom on scroll with JS.
+2. Hero — large left-aligned heading (max 3 lines), subtext, two CTAs 
+   (primary black + secondary outlined), hero screenshot mockup 
+   placeholder (gray rounded card, 16:9 ratio).
+3. Logos bar — "Trusted by teams at..." with 5 placeholder company names 
+   in muted gray, centered.
+4. Features — 3-column grid. Each card: icon (use emoji), bold title, 
+   2-line description. Hover state: border darkens to #d1d5db, 
+   translateY(-2px), transition 200ms ease.
+5. How it works — alternating left/right layout, 3 steps. Number badge, 
+   heading, description, placeholder screenshot card.
+6. Pricing — 2 tiers side by side. Free tier: outlined card. Pro tier: 
+   black background, white text, "Most popular" badge. List 4 features 
+   each with checkmarks.
+7. CTA banner — full-width dark section, centered heading, subtext, 
+   single CTA button.
+8. Footer — 4-column links, copyright line, minimal.
+
+Animations — implement all of these:
+- Fade-in + translateY(20px) to translateY(0) on scroll for every section, 
+  using IntersectionObserver. Threshold 0.15. Duration 500ms ease-out.
+- Staggered animation on feature cards: 100ms delay between each card.
+- Navbar CTA button: background transitions from black to #333 on hover, 
+  200ms ease.
+- Hero CTA primary: same hover transition. Secondary: background goes from 
+  transparent to #f3f4f6 on hover.
+- Smooth scroll on all anchor links.
+- Navbar border-bottom fades in on scroll past 60px using JS scroll event.
+
+Constraints:
+- Single file only — all CSS and JS embedded, no external files
+- No dependencies except Google Fonts via CDN link tag
+- All placeholder images replaced with styled gray div elements
+- Must be pixel-perfect at 375px mobile and 1440px desktop
+- No CSS frameworks, no utility classes from external sources
+
+Done When:
+- All 8 sections render correctly at both breakpoints
+- All animations trigger on scroll without layout shift
+- Navbar sticks and border appears on scroll
+- Hover states work on all interactive elements
+- Opens in browser with zero console errors
+```
+**🎯 Target:** Claude Code · **💰 Tokens:** Medium (~380) · **💡 Strategy:** Every vague Notion aesthetic cue translated into exact hex values and pixel specs — Claude Code cannot guess wrong. Animations defined with exact timing, method, and trigger so there is no interpretation needed.
+
+---
 
 ## Works With Any AI Tool
 
-Prompt Master includes specific profiles for 18+ tools. For anything not on the list, it uses a **Universal Fingerprint** — 4 questions that let it write a quality prompt for any AI system it has never seen before.
+Prompt Master includes specific profiles for 20+ tools. For anything not on the list, it uses a **Universal Fingerprint** — 4 questions that let it write a quality prompt for any AI system it has never seen before.
 
 | Tool | Category | What Prompt Master Fixes |
 |------|----------|--------------------------|
@@ -110,20 +217,21 @@ Prompt Master includes specific profiles for 18+ tools. For anything not on the 
 | **Devin / SWE-agent** | Autonomous agent | Starting state, target state, stop conditions |
 | **Perplexity / SearchGPT** | Search AI | Mode spec: search vs analyze vs compare |
 | **Midjourney** | Image AI | Comma-separated descriptors, parameters, negative prompts |
-| **DALL-E 3** | Image AI | Prose description, text exclusion instruction |
+| **DALL-E 3** | Image AI | Prose description, text exclusion instruction — edit vs generate detection |
 | **Stable Diffusion** | Image AI | Weight syntax `(word:1.3)`, CFG guidance, mandatory negative prompt |
+| **ComfyUI** | Image AI | Positive/negative node split, checkpoint-specific syntax |
 | **Sora / Runway** | Video AI | Camera movement, duration, cut style |
 | **ElevenLabs** | Voice AI | Emotion, pacing, emphasis, speech rate |
 | **Zapier / Make** | Workflow automation | Trigger app + event, action app + field mapping |
 
 ---
 
-## 9 Prompt Frameworks — Auto-Selected
+## 12 Prompt Templates — Auto-Selected
 
-Prompt Master picks the right architecture for every task automatically.
+Prompt Master picks the right architecture for every task automatically and routes silently — you never see the framework name, just the prompt.
 
-| Framework | Best For |
-|-----------|----------|
+| Template | Best For |
+|----------|----------|
 | **RTF** (Role, Task, Format) | Fast one-shot tasks |
 | **CO-STAR** (Context, Objective, Style, Tone, Audience, Response) | Professional documents, reports, business writing |
 | **RISEN** (Role, Instructions, Steps, End Goal, Narrowing) | Complex multi-step projects |
@@ -132,7 +240,10 @@ Prompt Master picks the right architecture for every task automatically.
 | **Few-Shot** | Consistent structured output, pattern replication |
 | **File-Scope Template** | Cursor, Windsurf, Copilot — any code editing AI |
 | **ReAct + Stop Conditions** | Claude Code, Devin, AutoGPT — any autonomous agent |
-| **Visual Descriptor** | Midjourney, DALL-E, Stable Diffusion, Sora |
+| **Visual Descriptor** | Midjourney, DALL-E, Stable Diffusion, Sora — generation |
+| **Reference Image Editing** | Editing an existing image — detects edit vs generate automatically |
+| **ComfyUI** | Node-based image workflows — positive/negative split per checkpoint |
+| **Prompt Decompiler** | Breaking down, adapting, simplifying, or splitting existing prompts |
 
 ---
 
@@ -236,62 +347,6 @@ This solves the #1 cause of wasted re-prompts in long sessions.
 
 ---
 
-## Full Example
-
-### User Input
-```
-i want to ask cursor to fix the bug in my login page
-```
-
-### Prompt Master Asks
-```
-Two quick things before I write this:
-1. What file is the login page in, and what's the buggy function called?
-2. What is the bug doing wrong right now?
-```
-
-### User Answers
-```
-it's src/pages/Login.tsx, the handleLogin function.
-When login fails it should show an error but the page just goes blank
-```
-
-### Generated Prompt
-
-```
-File: src/pages/Login.tsx
-Function: handleLogin
-
-Current Behavior:
-When login credentials are wrong or the server errors,
-the page goes blank. No error message is shown.
-
-Desired Change:
-After a failed login, display an inline error below the submit button.
-401 → "Incorrect email or password"
-500+ → "Something went wrong, please try again"
-Network error → "Unable to connect, please check your connection"
-
-Scope:
-Modify only handleLogin and the JSX error display section.
-Do NOT touch: form layout, input validation, styling, loading state.
-
-Constraints:
-- No new dependencies
-- TypeScript strict — no `any`, no type assertions
-- Preserve existing function signature and return type
-- Keep current loading state logic untouched
-
-Done When:
-- Failed login shows the correct error message below submit
-- Successful login still redirects correctly
-- Zero new TypeScript errors introduced
-```
-
-**🎯 Target:** Cursor · **⚡ Framework:** File-Scope Template · **💰 Tokens:** Light (~195) · **💡 Strategy:** Scoped to one function, do-not-touch list prevents layout breakage, three-case error spec eliminates ambiguity.
-
----
-
 ## References
 
 - [Anthropic Prompt Engineering Guide](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview) — Primary source for Claude-specific patterns
@@ -303,7 +358,8 @@ Done When:
 
 ## Version History
 
-- **1.3.0** — Rebuilt around PAC2026 positional structure (30/55/15). Silent routing replaces user-facing framework selection. 
+- **1.4.0** — Added reference image editing detection, ComfyUI support, Prompt Decompiler mode. Fixed trigger description to invoke correctly in Claude Code. 3 new templates added to references folder.
+- **1.3.0** — Rebuilt around PAC2026 positional structure (30/55/15). Silent routing replaces user-facing framework selection. References folder introduced.
 - **1.2.0** — Restructured for attention architecture. Removed fabrication-prone techniques (ToT, GoT, USC, prompt chaining). Templates and patterns moved to references folder.
 - **1.1.0** — Expanded tool coverage, added memory block system, 35 patterns
 - **1.0.0** — Initial release
